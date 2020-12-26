@@ -26,18 +26,21 @@ namespace WebBrowser
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            //Make sure user entered adress
             if (tbHomeAdress.Text == "")
                 MessageBox.Show("Adress is empty, plase enter one.");
             else
             {
                 string path = "AppData\\home.txt";
                 System.IO.File.WriteAllText(path,"https://" + tbHomeAdress.Text.ToLower());
+                ((Settings)this.Owner).tbAreaTitle.Text = "New home page saved!";
                 this.Close();
             }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
+            //Simply close window
             this.Close();
         }
     }

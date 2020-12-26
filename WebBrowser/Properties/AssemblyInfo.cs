@@ -7,11 +7,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Dino Web Browser")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("T-Rex Web Browser")]
+[assembly: AssemblyDescription("Simple web browser with all important functionalities.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("WebBrowser")]
+[assembly: AssemblyCompany("ETF Banja Luka")]
+[assembly: AssemblyProduct("Web browser")]
 [assembly: AssemblyCopyright("Copyright © Zelimir Maletic 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -53,3 +53,4 @@ using System.Windows;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: NeutralResourcesLanguage("en")]

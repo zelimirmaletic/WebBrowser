@@ -26,12 +26,14 @@ namespace WebBrowser
 
         private void btnYes_Click(object sender, RoutedEventArgs e)
         {
+            //Set static variable to true
             Settings.setFlag(true);
             this.Close();
         }
 
         private void btnNo_Click(object sender, RoutedEventArgs e)
         {
+            //Simply close the window
             this.Close();
         }
     }

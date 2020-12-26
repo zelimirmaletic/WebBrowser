@@ -45,7 +45,7 @@ namespace WebBrowser
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There are no more visited pages!");
+                MessageBox.Show("Can't go back!");
             }
         }
 
@@ -58,14 +58,27 @@ namespace WebBrowser
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There are no more forward pages!");
+                MessageBox.Show("Can't go forward!");
             }
+        }
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            webBrowser.Navigate(tbURL.Text);
+        }
+
+        private void btnHome_Click(object sender, RoutedEventArgs e)
+        {
+            webBrowser.Source = new Uri(getHomeAdress());
+            tbURL.Text = homePage.ToString();
         }
 
         private void btnGo_Click(object sender, RoutedEventArgs e)
         {
+            //Make sure there is inout data
             if (tbURL.Text == "")
                 MessageBox.Show("Enter adress or key words for search", "Warning");
+            //Make Google format query
             String googleURI = "https://www.google.com/search?&q=";
             if (tbURL.Text.StartsWith("https://") || tbURL.Text.StartsWith("http://"))
                 webBrowser.Navigate(tbURL.Text);
@@ -76,16 +89,11 @@ namespace WebBrowser
             }
         }
 
-        private void btnHome_Click(object sender, RoutedEventArgs e)
-        {
-                webBrowser.Source = new Uri(getHomeAdress());
-                tbURL.Text=homePage.ToString();
-        }
-
         private void webBrowser_Navigating(object sender, NavigatingCancelEventArgs e)
         {
             tbURL.Text = e.Uri.OriginalString;
             currentUri = new Uri(e.Uri.OriginalString);
+
             //If connection is not secure mark that with background color
             if(e.Uri.OriginalString.StartsWith("https://"))
                 tbURL.Background = new SolidColorBrush(Color.FromRgb(19,235,162));
@@ -96,14 +104,10 @@ namespace WebBrowser
                 writeToHistory(e.Uri.OriginalString);
         }
 
-        private void btnRefresh_Click(object sender, RoutedEventArgs e)
-        {
-            webBrowser.Navigate(tbURL.Text);
-        }
-
         private void btnStar_Click(object sender, RoutedEventArgs e)
         {
             string path = "AppData\\starred.txt";
+            //Check if a page is already starred
             string[] urlForSaving = new string[1];
             urlForSaving[0] = webBrowser.Source.ToString();
             string[] lines = System.IO.File.ReadAllLines(@path);
@@ -119,30 +123,36 @@ namespace WebBrowser
             System.IO.File.AppendAllLines(path, urlForSaving);
         }
 
+        private void btnNewWindow_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow newWindow = new MainWindow();
+            newWindow.Show();
+        }
+
+        private void btnPrint_Click(object sender, RoutedEventArgs e)
+        {
+            webBrowser.InvokeScript("execScript", new object[] { "window.print();", "JavaScript" });
+        }
+
+        private void btnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            //Show settings dialog
+            Settings settingsWindow = new Settings();
+            settingsWindow.Topmost = true;
+            settingsWindow.Owner = this;
+            settingsWindow.ShowDialog();
+        }
+
         private void writeToHistory(string url)
         {
             string path = "AppData\\history.txt";
             string[] urlForSaving = new string[1];
+            //Generate current date
             string dateTime = DateTime.Now.ToString("MM\\/dd\\/yyyy h\\:mm tt");
             urlForSaving[0] = dateTime + "  " + url;
             string[] lines = System.IO.File.ReadAllLines(@path);
             //Write to a file
             System.IO.File.AppendAllLines(path, urlForSaving);
-        }
-
-        private void btnSettings_Click(object sender, RoutedEventArgs e)
-        {
-            Settings settingsWindow = new Settings();
-            settingsWindow.Topmost = true;
-            settingsWindow.Owner = this;
-            settingsWindow.ShowDialog();
-            
-        }
-
-        private void btnNewWindow_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow newWindow = new MainWindow();
-            newWindow.Show();
         }
 
         private static string getHomeAdress()
@@ -158,9 +168,6 @@ namespace WebBrowser
 
         }
 
-        private void btnPrint_Click(object sender, RoutedEventArgs e)
-        {
-            webBrowser.InvokeScript("execScript", new object[] { "window.print();", "JavaScript" });
-        }
+
     }
 }
