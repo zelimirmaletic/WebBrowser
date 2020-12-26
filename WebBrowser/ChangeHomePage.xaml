@@ -32,11 +32,11 @@
 
         <TextBox x:Name="tbHomeAdress" Grid.ColumnSpan="2" Grid.Row="2" Grid.Column="2" Height="22" VerticalContentAlignment="Center" Width="auto" FontSize="12" FontWeight="Medium"/>
 
-        <Button x:Name="btnSave" Grid.Column="2" Grid.Row="3" Height="25" Width="60" FontWeight="Medium" VerticalAlignment="Center" Margin="4" HorizontalAlignment="Right" Click="btnSave_Click">
+        <Button x:Name="btnSave" Grid.Column="2" Grid.Row="3" Height="25" Width="60" FontWeight="Medium" VerticalAlignment="Center" Margin="4" HorizontalAlignment="Right" Click="btnSave_Click" Cursor="Hand">
             Save
         </Button>
         
-        <Button x:Name="btnCancel" Grid.Column="3" Grid.Row="3" Height="25" Width="60" FontWeight="Medium" VerticalAlignment="Center" Margin="4" HorizontalAlignment="Right" Click="btnCancel_Click" >
+        <Button x:Name="btnCancel" Grid.Column="3" Grid.Row="3" Height="25" Width="60" FontWeight="Medium" VerticalAlignment="Center" Margin="4" HorizontalAlignment="Right" Click="btnCancel_Click" Cursor="Hand" >
             Cancel
         </Button>
 

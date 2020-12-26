@@ -35,6 +35,8 @@ namespace WebBrowser
             tbIncognito.Background = Brushes.Orange;
         }
 
+        public Uri getCurrentUri() { return currentUri;  }
+
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -83,6 +85,7 @@ namespace WebBrowser
         private void webBrowser_Navigating(object sender, NavigatingCancelEventArgs e)
         {
             tbURL.Text = e.Uri.OriginalString;
+            currentUri = new Uri(e.Uri.OriginalString);
             //If connection is not secure mark that with background color
             if(e.Uri.OriginalString.StartsWith("https://"))
                 tbURL.Background = new SolidColorBrush(Color.FromRgb(19,235,162));
@@ -132,14 +135,14 @@ namespace WebBrowser
             Settings settingsWindow = new Settings();
             settingsWindow.Topmost = true;
             settingsWindow.Owner = this;
-            settingsWindow.Show();
+            settingsWindow.ShowDialog();
             
         }
 
         private void btnNewWindow_Click(object sender, RoutedEventArgs e)
         {
             MainWindow newWindow = new MainWindow();
-            newWindow.ShowDialog();
+            newWindow.Show();
         }
 
         private static string getHomeAdress()
@@ -153,6 +156,11 @@ namespace WebBrowser
             dynamic doc = webBrowser.Document;
             return  doc.documentElement.InnerHtml;
 
+        }
+
+        private void btnPrint_Click(object sender, RoutedEventArgs e)
+        {
+            webBrowser.InvokeScript("execScript", new object[] { "window.print();", "JavaScript" });
         }
     }
 }

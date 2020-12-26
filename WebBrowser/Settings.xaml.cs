@@ -11,8 +11,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Windows.Media;
-using System.Windows.Controls;
+using System.Security;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using System.Net;
+
 
 namespace WebBrowser
 {
@@ -23,19 +26,20 @@ namespace WebBrowser
     {
         private static bool flag = false;
         public static void setFlag(bool state) { flag = state; }
+        private string historyFilePath = "AppData\\history.txt";
+        private string starredFilePath = "AppData\\starred.txt";
+
         public Settings()
         {
             InitializeComponent();
             this.cbIncognito.IsChecked = MainWindow.isIncognito;
-            
         }
 
         private void btnShowHistory_Click(object sender, RoutedEventArgs e)
         {
             lbShowArea.Items.Clear();
             tbAreaTitle.Text = "Your History";
-            string path = "AppData\\history.txt";
-            string[] records = System.IO.File.ReadAllLines(path);
+            string[] records = System.IO.File.ReadAllLines(historyFilePath);
             foreach (string data in records)
                 lbShowArea.Items.Add(data);
             if (lbShowArea.Items.IsEmpty)
@@ -45,23 +49,27 @@ namespace WebBrowser
         private void btnClearHistory_Click(object sender, RoutedEventArgs e)
         {
             clearShowArea();
+
+            if (new System.IO.FileInfo(historyFilePath).Length == 0)
+            {
+                MessageBox.Show("Your history is already empty!", "Info");
+                return;
+            }
+                
+
             ConfirmBox confirmBox = new ConfirmBox();
             confirmBox.Topmost = true;
-            confirmBox.Show();
+            confirmBox.ShowDialog();
 
             if (flag)
-            {
-                string path = "AppData\\history.txt";
-                System.IO.File.WriteAllText(path,"");
-            }
+                System.IO.File.WriteAllText(historyFilePath,"");
         }
 
         private void btnShowStarred_Click(object sender, RoutedEventArgs e)
         {
             lbShowArea.Items.Clear();
             tbAreaTitle.Text = "Your Starred Pages";
-            string path = "AppData\\starred.txt";
-            string[] records = System.IO.File.ReadAllLines(path);
+            string[] records = System.IO.File.ReadAllLines(starredFilePath);
             foreach (string data in records)
                 lbShowArea.Items.Add(data);
             if (lbShowArea.Items.IsEmpty)
@@ -71,24 +79,20 @@ namespace WebBrowser
         private void btnClearStarred_Click(object sender, RoutedEventArgs e)
         {
             clearShowArea();
+
+            if (new System.IO.FileInfo(starredFilePath).Length == 0)
+            {
+                MessageBox.Show("Your starred pages list is already empty!", "Info");
+                return;
+            }
+                
+
             ConfirmBox confirmBox = new ConfirmBox();
             confirmBox.Topmost = true;
-            confirmBox.Show();
+            confirmBox.ShowDialog();
 
             if (flag)
-            {
-                string path = "AppData\\starred.txt";
-                System.IO.File.WriteAllText(path, "");
-            }
-        }
-
-        private void btnPrint_Click(object sender, RoutedEventArgs e)
-        {
-            clearShowArea();
-           
-            // Create the print dialog object and set options
-           // PrintDialog printDialog = new PrintDialog();
-           // printDialog.PrintDocument(((IDocumentPaginatorSource)((MainWindow)this.Owner).webBrowser.Document).DocumentPaginator, "My App");  
+                System.IO.File.WriteAllText(starredFilePath, "");
         }
 
         private void cbIncognito_Click(object sender, RoutedEventArgs e)
@@ -96,37 +100,45 @@ namespace WebBrowser
             clearShowArea();
             MainWindow.isIncognito = (bool)cbIncognito.IsChecked;
             //Set incognito label 
-            var mainWindow = ((MainWindow)this.Owner);
-            if (mainWindow.tbIncognito.Text=="TRACKING")
+            if (((MainWindow)this.Owner).tbIncognito.Text=="TRACKING")
             {
-                mainWindow.tbIncognito.Text = "INCOGNITO";
+                tbAreaTitle.Text="You are now in Incognito mode, no history will be recorded!";
+                ((MainWindow)this.Owner).tbIncognito.Text = "INCOGNITO";
                 SolidColorBrush backgroundBrush = Brushes.MediumPurple;
-                mainWindow.tbIncognito.Background=backgroundBrush;
+                ((MainWindow)this.Owner).tbIncognito.Background=backgroundBrush;
             }
             else
             {
-                mainWindow.tbIncognito.Text = "TRACKING";
+                tbAreaTitle.Text = "";
+                ((MainWindow)this.Owner).tbIncognito.Text = "TRACKING";
                 SolidColorBrush backgroundBrush = Brushes.Orange;
-                mainWindow.tbIncognito.Background = backgroundBrush;
+                ((MainWindow)this.Owner).tbIncognito.Background = backgroundBrush;
             }
         }
 
         private void btnAbout_Click(object sender, RoutedEventArgs e)
         {
             clearShowArea();
-            tbAreaTitle.Text = "About";
-            lbShowArea.Items.Add("T-Rex Web Browser");
-            lbShowArea.Items.Add("Version 1.0");
-            lbShowArea.Items.Add("Copyright Zelimir Maletic 2021.");
-            lbShowArea.Items.Add("ETF Banja Luka");
-
+            if (lbShowArea.Items.IsEmpty)
+            {
+                tbAreaTitle.Text = "About";
+                lbShowArea.Items.Add("T-Rex Web Browser");
+                lbShowArea.Items.Add("Version 1.0");
+                lbShowArea.Items.Add("Copyright Zelimir Maletic 2021.");
+                lbShowArea.Items.Add("ETF Banja Luka");
+                lbShowArea.Items.Add("");
+                lbShowArea.Items.Add("FUNCTIONALITIES:");
+                string[] records = System.IO.File.ReadAllLines("AppData\\functionalities.txt");
+                foreach (string data in records)
+                    lbShowArea.Items.Add(data);
+            }
         }
 
         private void btnSetHomePage_Click(object sender, RoutedEventArgs e)
         {
             clearShowArea();
             ChangeHomePage newWindow = new ChangeHomePage();
-            newWindow.Show();
+            newWindow.ShowDialog();
         }
 
         private void btnSourceCode_Click(object sender, RoutedEventArgs e)
@@ -159,6 +171,28 @@ namespace WebBrowser
         {
             tbAreaTitle.Text = "";
             lbShowArea.Items.Clear();
+        }       
+
+        private void btnCert_Click(object sender, RoutedEventArgs e)
+        {
+            //Do webrequest to get info on secure site
+            Uri current = ((MainWindow)this.Owner).getCurrentUri();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(current.ToString());
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            response.Close();
+            //retrieve the ssl cert and assign it to an X509Certificate object
+            X509Certificate cert = request.ServicePoint.Certificate;
+            //If there is no certificate show a message box
+            if (cert == null)
+            {
+                MessageBox.Show("This page has no SSL certificate!", "Info");
+                return;
+            }
+            //convert the X509Certificate to an X509Certificate2 object by passing it into the constructor
+            X509Certificate2 cert2 = new X509Certificate2(cert);
+            //display the cert dialog box
+            X509Certificate2UI.DisplayCertificate(cert2);
+            
         }
     }
 }
