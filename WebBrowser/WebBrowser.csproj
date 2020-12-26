@@ -34,9 +34,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,6 +59,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ChangeHomePage.xaml.cs">
+      <DependentUpon>ChangeHomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ConfirmBox.xaml.cs">
+      <DependentUpon>ConfirmBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resource1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Page Include="ChangeHomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ConfirmBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -67,6 +93,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -86,6 +116,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resource1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -95,7 +130,61 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\" />
+    <Resource Include="Resources\back.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\forward.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\home.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\reload.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\settings.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\star.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\go.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\trex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\newWindow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\new.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\history.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\question.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\print.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\incognito.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\about.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\code.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\save.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
