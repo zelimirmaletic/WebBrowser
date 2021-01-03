@@ -5,7 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WebBrowser"
         mc:Ignorable="d"
-        Title="Change home page" Height="150" Width="400" ResizeMode="NoResize" Icon="Resources\home.ico" WindowStartupLocation="CenterScreen" Topmost="True">
+        Title="Change home page"
+        Height="150" Width="400"
+        ResizeMode="NoResize"
+        Icon="Resources\home.ico"
+        WindowStartupLocation="CenterScreen"
+        Topmost="True">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>

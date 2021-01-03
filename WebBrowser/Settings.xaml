@@ -5,7 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WebBrowser"
         mc:Ignorable="d"
-        Title="T-Rex Browser Settings" Height="600" Width="600" ResizeMode="CanMinimize"  Icon="Resources\settings.ico" WindowStartupLocation="CenterScreen">
+        Title="T-Rex Browser Settings" 
+        Height="600" 
+        Width="600" 
+        ResizeMode="CanMinimize"
+        Icon="Resources\settings.ico"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>
@@ -38,23 +51,23 @@
         <TextBlock x:Name="tbAreaTitle" Grid.Row="1" Grid.Column="3" Height="30" Width="auto" FontSize="16" FontWeight="Medium"/>
         
         <Image Grid.Column="1" Grid.Row="3" Source="Resources\history.ico" Height="25" Width="25"/>
-        <Button x:Name="btnShowHistory" Grid.Column="2" Grid.Row="3" Height="25" Width="80" Click="btnShowHistory_Click" FontWeight="Medium" Cursor="Hand">
+        <Button x:Name="btnShowHistory" Grid.Column="2" Grid.Row="3" Click="btnShowHistory_Click">
             Show history
         </Button>
-        <Button x:Name="btnClearHistory" Grid.Column="2" Grid.Row="4" Height="25" Width="80" Click="btnClearHistory_Click" FontWeight="Medium" Cursor="Hand">
+        <Button x:Name="btnClearHistory" Grid.Column="2" Grid.Row="4" Click="btnClearHistory_Click">
             Clear history
         </Button>
         
         <Image Grid.Column="1" Grid.Row="5" Source="Resources\star.ico" Height="25" Width="25"/>
-        <Button x:Name="btnShowStarred" Grid.Column="2" Grid.Row="5" Height="25" Width="80" Click="btnShowStarred_Click" FontWeight="Medium" Cursor="Hand">
+        <Button x:Name="btnShowStarred" Grid.Column="2" Grid.Row="5" Click="btnShowStarred_Click">
             Show starred
         </Button>
-        <Button x:Name="btnClearStarred" Grid.Column="2" Grid.Row="6" Height="25" Width="80" Click="btnClearStarred_Click" FontWeight="Medium" Cursor="Hand">
+        <Button x:Name="btnClearStarred" Grid.Column="2" Grid.Row="6" Click="btnClearStarred_Click" >
             Clear starred
         </Button>
         
         <Image Grid.Column="1" Grid.Row="7" Source="Resources\shield.ico" Height="25" Width="25"/>
-        <Button x:Name="btnCert" Grid.Column="2" Grid.Row="7" Height="25" Width="80" FontWeight="Medium" Cursor="Hand" Click="btnCert_Click">
+        <Button x:Name="btnCert" Grid.Column="2" Grid.Row="7" Click="btnCert_Click">
             Certificates
         </Button>
 
@@ -64,22 +77,22 @@
         </CheckBox>
 
         <Image Grid.Column="1" Grid.Row="9" Source="Resources\home.ico" Height="25" Width="25" />
-        <Button x:Name="btnSetHomePage" Grid.Column="2" Grid.Row="9" Width="80" Height="25" FontWeight="Medium" Click="btnSetHomePage_Click" Cursor="Hand">
+        <Button x:Name="btnSetHomePage" Grid.Column="2" Grid.Row="9" Click="btnSetHomePage_Click">
             Set Home
         </Button>
 
         <Image Grid.Column="1" Grid.Row="10" Source="Resources\code.ico" Height="25" Width="25"/>
-        <Button x:Name="btnSourceCode" Grid.Column="2" Grid.Row="10" Height="25" Width="80" FontWeight="Medium" Click="btnSourceCode_Click" Cursor="Hand">
+        <Button x:Name="btnSourceCode" Grid.Column="2" Grid.Row="10" Click="btnSourceCode_Click">
             Source code
         </Button>
 
         <Image Grid.Column="1" Grid.Row="11" Source="Resources\save.ico" Height="25" Width="25"/>
-        <Button x:Name="btnSave" Grid.Column="2" Grid.Row="11" Height="25" Width="80" FontWeight="Medium" Click="btnSave_Click" Cursor="Hand">
+        <Button x:Name="btnSave" Grid.Column="2" Grid.Row="11" Click="btnSave_Click">
             Save page as
         </Button>
 
         <Image Grid.Column="1" Grid.Row="12" Source="Resources\about.ico" Height="25" Width="25"/>
-        <Button x:Name="btnAbout" Grid.Column="2" Grid.Row="12" Height="25" Width="80" Click="btnAbout_Click" FontWeight="Medium" Cursor="Hand">
+        <Button x:Name="btnAbout" Grid.Column="2" Grid.Row="12" Click="btnAbout_Click">
             About
         </Button>
         

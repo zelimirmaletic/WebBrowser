@@ -5,7 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WebBrowser"
         mc:Ignorable="d"
-        Title="Delete" Height="150" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Resources\question.ico" Topmost="True">
+        Title="Delete" 
+        Height="150"
+        Width="400" 
+        ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen" 
+        Icon="Resources\question.ico" 
+        Topmost="True">
     
     <Grid>
         <Grid.ColumnDefinitions>
