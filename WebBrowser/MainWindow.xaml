@@ -40,10 +40,16 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="5"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="35"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="5"/>
         </Grid.RowDefinitions>
+
+        <Rectangle Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="14">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#e3e3e3"/>
+            </Rectangle.Fill>
+        </Rectangle>
         
         <Button x:Name="btnBack" Grid.Column="1" Grid.Row="1" Click="btnBack_Click">
             <Image Source="/Resources/back.ico"/>
