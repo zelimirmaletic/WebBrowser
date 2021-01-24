@@ -25,6 +25,7 @@ namespace WebBrowser
     public partial class Settings : Window
     {
         private static bool flag = false;
+        private static bool isWebAdress = false;
         public static void setFlag(bool state) { flag = state; }
         private string historyFilePath = "AppData\\history.txt";
         private string starredFilePath = "AppData\\starred.txt";
@@ -37,6 +38,7 @@ namespace WebBrowser
 
         private void btnShowHistory_Click(object sender, RoutedEventArgs e)
         {
+            isWebAdress = true;
             //Clear all previous items
             lbShowArea.Items.Clear();
             //Set a new title
@@ -53,12 +55,13 @@ namespace WebBrowser
 
         private void btnClearHistory_Click(object sender, RoutedEventArgs e)
         {
+            isWebAdress = false;
             //Clear all previous items
             clearShowArea();
             //If history file is already empty, show a message
             if (new System.IO.FileInfo(historyFilePath).Length == 0)
             {
-                MessageBox.Show("Your history is already empty!", "Info");
+                MessageBox.Show("Your history is already empty!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             //Make a new confirm window
@@ -72,6 +75,7 @@ namespace WebBrowser
 
         private void btnShowStarred_Click(object sender, RoutedEventArgs e)
         {
+            isWebAdress = true;
             //Clear all previous items
             lbShowArea.Items.Clear();
             //Set up a new title
@@ -88,12 +92,13 @@ namespace WebBrowser
 
         private void btnClearStarred_Click(object sender, RoutedEventArgs e)
         {
+            isWebAdress = false;
             //Clear all previous items
             clearShowArea();
             //If starred file is already emty, show a message
             if (new System.IO.FileInfo(starredFilePath).Length == 0)
             {
-                MessageBox.Show("Your starred pages list is already empty!", "Info");
+                MessageBox.Show("Your starred pages list is already empty!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             //Make a new confirm box
@@ -107,6 +112,7 @@ namespace WebBrowser
 
         private void btnCert_Click(object sender, RoutedEventArgs e)
         {
+            isWebAdress = false;
             //Clear all previous items
             clearShowArea();
             //Set a new title
@@ -164,6 +170,7 @@ namespace WebBrowser
 
         private void btnSourceCode_Click(object sender, RoutedEventArgs e)
         {
+            isWebAdress = false;
             //Clear all previous items
             clearShowArea();
             if (lbShowArea.Items.IsEmpty)
@@ -197,6 +204,7 @@ namespace WebBrowser
 
         private void btnAbout_Click(object sender, RoutedEventArgs e)
         {
+            isWebAdress = false;
             //Clear all previous items
             clearShowArea();
             if (lbShowArea.Items.IsEmpty)
@@ -214,7 +222,15 @@ namespace WebBrowser
             lbShowArea.Items.Clear();
         }
 
-
-
+        private void lbShowArea_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(isWebAdress && !(lbShowArea.SelectedItem.ToString().StartsWith("Your")))
+            {
+                var split = lbShowArea.SelectedItem.ToString().Split(' ');
+                string adress = split[4];
+                ((MainWindow)this.Owner).setUrl(adress);
+                ((MainWindow)this.Owner).btnGo_Click(sender, e);
+            }
+        }
     }
 }

@@ -95,8 +95,8 @@
         <Button x:Name="btnAbout" Grid.Column="2" Grid.Row="12" Click="btnAbout_Click">
             About
         </Button>
-        
-        <ListBox x:Name="lbShowArea" Grid.Row="2" Grid.RowSpan="13" Grid.Column="3" Width="auto"/>
+
+        <ListBox x:Name="lbShowArea" Grid.Row="2" Grid.RowSpan="13" Grid.Column="3" Width="auto" MouseDoubleClick="lbShowArea_MouseDoubleClick"/> 
 
         <Image Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="3" Source="Resources/trex.png" Height="100" Width="100" />
 

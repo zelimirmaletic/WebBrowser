@@ -1,18 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Net;
 
 namespace WebBrowser
 {
@@ -45,7 +34,7 @@ namespace WebBrowser
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Can't go back!");
+                MessageBox.Show("Can't go back!","Warning", MessageBoxButton.OK,MessageBoxImage.Warning);
             }
         }
 
@@ -58,7 +47,7 @@ namespace WebBrowser
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Can't go forward!");
+                MessageBox.Show("Can't go forward!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -73,11 +62,11 @@ namespace WebBrowser
             tbURL.Text = homePage.ToString();
         }
 
-        private void btnGo_Click(object sender, RoutedEventArgs e)
+        public void btnGo_Click(object sender, RoutedEventArgs e)
         {
             //Make sure there is inout data
             if (tbURL.Text == "")
-                MessageBox.Show("Enter adress or key words for search", "Warning");
+                MessageBox.Show("Enter adress or key words for search", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             //Make Google format query
             String googleURI = "https://www.google.com/search?&q=";
             if (tbURL.Text.StartsWith("https://") || tbURL.Text.StartsWith("http://"))
@@ -109,13 +98,16 @@ namespace WebBrowser
             string path = "AppData\\starred.txt";
             //Check if a page is already starred
             string[] urlForSaving = new string[1];
-            urlForSaving[0] = webBrowser.Source.ToString();
+            //Generate current date
+            string dateTime = DateTime.Now.ToString("MM\\/dd\\/yyyy h\\:mm tt");
+            urlForSaving[0] = dateTime + "  " + webBrowser.Source.ToString();
+
             string[] lines = System.IO.File.ReadAllLines(@path);
             foreach (string line in lines)
             {
                 if(line == urlForSaving[0])
                 {
-                    MessageBox.Show("This web page is already starred!");
+                    MessageBox.Show("This web page is already starred!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
             }
@@ -166,6 +158,11 @@ namespace WebBrowser
             dynamic doc = webBrowser.Document;
             return  doc.documentElement.InnerHtml;
 
+        }
+
+        public void setUrl(string url)
+        {
+            tbURL.Text = url;
         }
 
 
